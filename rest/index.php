@@ -19,6 +19,14 @@ $router = (new \Check24\Application\Router())
 			\Check24\Controller\User::getCurrent()->logout();
 		}
 	})
+	->registerRoute('articleApi', '/article/edit/{id}/', function($id) {
+		$article = new \Check24\Controller\Article($id);
+		if ($article->canEdit(\Check24\Controller\User::getCurrent()))
+		{
+			$article->update($_POST);
+		}
+		return ['ID' => $id];
+	})
 	->registerRoute('404', '/404/', function() {})
 ;
 
@@ -38,9 +46,7 @@ else
 	);
 }
 
-
 $callback = ($route ?: $router->getRoute('404'))->getController();
 
 echo \Check24\Application\PageJson::getInstance()->render($callback);
-
 require_once __DIR__.'/../core/epilogue.php';

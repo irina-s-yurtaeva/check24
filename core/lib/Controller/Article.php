@@ -49,6 +49,12 @@ class Article implements \ArrayAccess
 		return false;
 	}
 
+	public function update(array $data)
+	{
+		//TODO update article
+		return  true;
+	}
+
 	public function offsetExists($offset)
 	{
 		return array_key_exists($offset, $this->data);

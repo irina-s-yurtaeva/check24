@@ -56,5 +56,42 @@ setTimeout(() => {
 				return false;
 			});
 		})
-}, 0)
-;
+	;
+	const editForm = document.querySelector('form[data-action="edit-article"]');
+	if (editForm)
+	{
+		editForm.addEventListener('submit', (event) => {
+			event.stopPropagation();
+			event.preventDefault();
+			try
+			{
+				window.fetch('/rest/article/edit/{id}/'.replace('{id}', editForm.id.value || 'new') , {
+					method: 'POST',
+					body: new FormData(editForm)
+				})
+					.then(response => response.json())
+					.then(data => {
+						console.log('data: ', data);
+						return;
+						if (data.errors)
+						{
+							alert(Array.from(data.errors).map((error) => error.message).join(' - '));
+						}
+						else
+						{
+							window.location.href = '/articleread/{id}/'.replace('{id}', data['id']);
+						}
+					})
+				;
+			}
+			catch (e)
+			{
+				console.log('e: ', e);
+
+			}
+
+			return false;
+		});
+
+	}
+}, 0);
