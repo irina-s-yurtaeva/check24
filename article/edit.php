@@ -30,8 +30,9 @@ if ($params['id'] > 0)
 <div>
     <div>
         <h1><?= $pageTitle ?? 'Add article' ?></h1>
-        <form data-id="<?= $article['ID'] ?? '' ?>" class="article">
-            <div class="form-group">
+        <form data-id="<?= $article['ID'] ?? '' ?>" method="post" class="article">
+	        <input type="hidden" name="tk" value="<?=\Check24\Controller\User::getCurrent()->getCSRFToken()?>">
+	        <div class="form-group">
                 <label for="title">
                     Title (required)
                 </label>
