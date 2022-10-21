@@ -86,9 +86,6 @@ class Article implements \ArrayAccess
 
 	public static function getListByThePage(?int $pageNumber = null, ?int $pageSize = null)
 	{
-		?><pre><b>$pageNumber: </b><?print_r($pageNumber)?></pre><?
-		?><pre><b>$pageSize: </b><?print_r($pageSize)?></pre><?
-
 		$result = ArticleTable::getList([
 			'order' => ['ID' => 'DESC']
 		] + ($pageNumber > 1 && $pageSize > 0 ? [
