@@ -16,6 +16,44 @@ class ArticleTable extends \Check24\Model\BaseTable
 
 class Article
 {
+	protected int $id;
+	protected array $data;
+
+	public function __construct(int $id, ?array $data = null)
+	{
+		$this->id = $id;
+		if (!empty($data))
+		{
+			$this->data = $data;
+		}
+		else
+		{
+			$this->data = ArticleTable::getList(['filter' => ['ID' => $id]])->fetch();
+		}
+	}
+
+	public function canEdit(User $currentUser): bool
+	{
+		if (
+			$currentUser->isAuthed()
+			&&
+			(
+				$currentUser->getId() == $this->data['AUTHOR_ID']
+				||
+				$currentUser->isEditor()
+			)
+		)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	public static function createFromArray(array $data): self
+	{
+		return new static($data['ID'], $data);
+	}
+
 	public static function getListByThePage(?int $pageNumber = null, ?int $pageSize = null)
 	{
 		?><pre><b>$pageNumber: </b><?print_r($pageNumber)?></pre><?

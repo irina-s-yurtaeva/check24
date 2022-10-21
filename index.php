@@ -28,7 +28,6 @@ else
 		$_SERVER['REQUEST_METHOD'] ?: 'GET',
 		$_SERVER['PATH_INFO'] ?? '/'
 	) ?: $router->getRoute('404');
-	?><pre><b>$route: </b><?print_r($route)?></pre><?
 
 	$callback = $route->getController();
 

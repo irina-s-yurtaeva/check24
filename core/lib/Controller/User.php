@@ -36,9 +36,20 @@ class User
 		}
 	}
 
+	public function getId(): ?int
+	{
+		return $this->id;
+	}
+
 	public function isAuthed(): bool
 	{
 		return isset($_SESSION['userId']) && $this->id > 0 && (intval($_SESSION['userId']) === intval($this->id));
+	}
+
+	public function isEditor(): bool
+	{
+		//TODO make a checking with the role CODE === 'editor' || CODE === 'administrator'
+		return false;
 	}
 
 	public static function auth(string $login, string $password)

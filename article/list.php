@@ -46,6 +46,20 @@ else
 				<dd>
 					<?=yu_preparetext($article['BODY'])?>
 				</dd>
+				<?php
+					if (\Check24\Controller\Article::createFromArray($article)->canEdit(
+							\Check24\Controller\User::getCurrent()
+						)
+					)
+					{
+						?>
+						<dd>
+							<input type="button" data-action="edit-article" name="edit" value="Edit">
+							<input type="button" data-action="delete-article" name="delete" value="Delete">
+						</dd>
+						<?php
+					}
+				?>
 			</dl>
 			</li><?php
 		} while ($article = $articleData->fetch())

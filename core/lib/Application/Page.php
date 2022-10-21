@@ -26,7 +26,11 @@ class Page
 		{
 			if (DEBUG_MODE)
 			{
-				throw $exception;
+				?><pre><b>$exception: </b><?print_r($exception)?></pre><?
+			}
+			else
+			{
+				?><pre>Everything is almost perfect.</pre><?
 			}
 			ob_end_clean();
 			return null;

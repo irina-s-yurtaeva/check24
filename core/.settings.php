@@ -1,6 +1,6 @@
 <?php
 const DOC_ROOT = __DIR__ . '/../';
-const DEBUG_MODE = false;
+const DEBUG_MODE = true;
 return [
 	'connection' => [
 		'host' => 'localhost:3306',
