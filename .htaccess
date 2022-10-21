@@ -1,0 +1,6 @@
+Options -Indexes 
+ErrorDocument 404 /404.php
+
+<IfModule mod_dir.c>
+  DirectoryIndex index.php index.html
+</IfModule>

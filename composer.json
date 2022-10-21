@@ -1,0 +1,20 @@
+{
+    "name": "check24/blog",
+    "authors": [
+        {
+            "name": "Ira Yu",
+            "email": "irina.s.yurtaeva@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "8.5.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Check24\\": "core\\lib"
+        }
+    }
+}
