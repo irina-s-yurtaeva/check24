@@ -16,6 +16,7 @@ class Page
 	public function render(callable $callback): ?string
 	{
 		header("Check24: test challenge");
+
 		try
 		{
 			ob_start();
@@ -30,10 +31,9 @@ class Page
 			}
 			else
 			{
-				?><pre>Everything is almost perfect.</pre><?
+				?><pre>Everything is almost perfect. But: <?=$exception->getMessage()?></pre><?
 			}
-			ob_end_clean();
-			return null;
+			return ob_get_clean();
 		}
 	}
 

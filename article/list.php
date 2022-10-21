@@ -8,6 +8,8 @@ require_once DOC_ROOT.'/core/prolog.php';
 include DOC_ROOT.'/template/header.php';
 
 $route = \Check24\Application\Page::getInstance()->getRouter()->getRoute('listArticle');
+$routeForReading = \Check24\Application\Page::getInstance()->getRouter()->getRoute('readArticle');
+$routeForEditing = \Check24\Application\Page::getInstance()->getRouter()->getRoute('editArticle');
 $params = $route->getParameters();
 
 $pageNumber = isset($params['pageNumber']) ? intval($params['pageNumber']) : 1;
@@ -43,23 +45,22 @@ else
 				<dt>
 					Author: <?=yu_preparetext($article['AUTHOR_NAME'])?>
 				</dt>
-				<dd>
-					<?=yu_preparetext($article['BODY'])?>
-				</dd>
-				<?php
+				<dt>
+					<a href="<?=$routeForReading->getUri(['id' => $article['ID']])?>">read</a><?php
 					if (\Check24\Controller\Article::createFromArray($article)->canEdit(
-							\Check24\Controller\User::getCurrent()
+						\Check24\Controller\User::getCurrent()
 						)
 					)
 					{
-						?>
-						<dd>
-							<input type="button" data-action="edit-article" name="edit" value="Edit">
-							<input type="button" data-action="delete-article" name="delete" value="Delete">
-						</dd>
-						<?php
-					}
-				?>
+					?>
+						<a href="<?=$routeForEditing->getUri(['id' => $article['ID']])?>">edit</a>
+						<input type="button" data-action="delete-article" name="delete" value="Delete">
+					<?php } ?>
+				</dt>
+				<dd>
+					<?=yu_preparetext(substr($article['BODY'], 0, 1000))?>
+				</dd>
+
 			</dl>
 			</li><?php
 		} while ($article = $articleData->fetch())

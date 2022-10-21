@@ -14,7 +14,7 @@ class ArticleTable extends \Check24\Model\BaseTable
 	}
 }
 
-class Article
+class Article implements \ArrayAccess
 {
 	protected int $id;
 	protected array $data;
@@ -47,6 +47,26 @@ class Article
 			return true;
 		}
 		return false;
+	}
+
+	public function offsetExists($offset)
+	{
+		return array_key_exists($offset, $this->data);
+	}
+
+	public function offsetGet($offset)
+	{
+		return $this->data[$offset];
+	}
+
+	public function offsetSet($offset, $value)
+	{
+
+	}
+
+	public function offsetUnset($offset)
+	{
+
 	}
 
 	public static function createFromArray(array $data): self

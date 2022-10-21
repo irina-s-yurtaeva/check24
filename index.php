@@ -20,8 +20,8 @@ else
 		->registerRoute('index', '/', \Check24\Application\Page::getWrapper('/article/list.php'))
 		->registerRoute('listArticle', '/articles/{pageNumber}/', \Check24\Application\Page::getWrapper('/article/list.php' ))
 		->registerRoute('addArticle', '/articleadd/', \Check24\Application\Page::getWrapper('/article/edit.php' ))
-		->registerRoute('editArticle', '/articleedit/{id}', \Check24\Application\Page::getWrapper('/article/edit.php' ))
-		->registerRoute('readArticle', '/articleread/{id}', \Check24\Application\Page::getWrapper('/article/read.php' ))
+		->registerRoute('editArticle', '/articleedit/{id}/', \Check24\Application\Page::getWrapper('/article/edit.php' ))
+		->registerRoute('readArticle', '/articleread/{id}/', \Check24\Application\Page::getWrapper('/article/read.php' ))
 	;
 	\Check24\Application\Page::getInstance()->setRouter($router);
 	$route = $router->match(
