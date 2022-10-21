@@ -14,6 +14,15 @@ class PageJson extends Page
 				'data' => call_user_func($callback)
 			];
 		}
+		catch (\Check24\Application\ApplicationException $exception)
+		{
+			$result = [
+				'status' => 'ERROR',
+				'errors' => [
+					['message' => $exception->getMessage(), 'code' => $exception->getCode()]
+				]
+			];
+		}
 		catch (\Throwable $exception)
 		{
 			if (DEBUG_MODE)

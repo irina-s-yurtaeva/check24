@@ -2,7 +2,7 @@
 
 namespace Check24\Application;
 
-class AccessDeniedException extends \Exception
+class AccessDeniedException extends ApplicationException
 {
 	public function __construct($message = "")
 	{

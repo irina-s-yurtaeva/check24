@@ -51,8 +51,12 @@ class Article implements \ArrayAccess
 
 	public function update(array $data)
 	{
-		//TODO update article
-		return  true;
+		$data = array_change_key_case($data, CASE_UPPER);
+		$result = ArticleTable::update($this->id, array_intersect_key(
+			array_flip(['TITLE', 'BODY', 'AUTHOR_NAME']),
+			$data
+		));
+		return  $result->errorCode() < 0;
 	}
 
 	public function offsetExists($offset)

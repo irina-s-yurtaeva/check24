@@ -21,11 +21,15 @@ $router = (new \Check24\Application\Router())
 	})
 	->registerRoute('articleApi', '/article/edit/{id}/', function($id) {
 		$article = new \Check24\Controller\Article($id);
-		if ($article->canEdit(\Check24\Controller\User::getCurrent()))
+		if (
+			$article->canEdit(\Check24\Controller\User::getCurrent())
+			&&
+			$article->update($_POST)
+		)
 		{
-			$article->update($_POST);
+			return ['id' => $id];
 		}
-		return ['ID' => $id];
+		throw new \Check24\Application\ResponseException('Bad arguments.');
 	})
 	->registerRoute('404', '/404/', function() {})
 ;
