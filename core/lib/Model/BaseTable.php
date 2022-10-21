@@ -9,11 +9,6 @@ abstract class BaseTable
 
 	public static function getList(array $queryFields = []): Result
 	{
-		if (isset($GLOBALS['edbug']))
-		{
-die('!!!');
-
-		}
 		$tableName = static::getTableName();
 		$sqlConstructor = "SELECT * FROM `{$tableName}`";
 		$fieldConstructor = [];
@@ -44,20 +39,13 @@ die('!!!');
 		//region OFFSET LIMIT
 		if (isset($queryFields['limit']))
 		{
-
+			$sqlConstructor .= ' LIMIT '.intval($queryFields['limit']);
 		}
 		if (isset($queryFields['offset']))
 		{
-
+			$sqlConstructor .= ' OFFSET '.intval($queryFields['offset']);
 		}
 		//endregion
-		if (isset($GLOBALS['edbug']))
-		{
-			?><pre><b>$sqlConstructor: </b><?print_r($sqlConstructor)?></pre><?
-
-			?><pre><b>$queryFields: </b><?print_r($queryFields)?></pre><?
-
-		}
 		$stmt = static::getPDO()->prepare(
 			$sqlConstructor
 		);
